@@ -4,6 +4,7 @@
 --  SPDX-License-Identifier: ISC                                            --
 ------------------------------------------------------------------------------
 
+with Ada.Directories;
 with Ada.Streams.Stream_IO;
 
 package body Objloader.Files is
@@ -17,7 +18,9 @@ package body Objloader.Files is
          Stream_IO.Open (File, Stream_IO.In_File, File_Name);
       exception
          when others =>
-            raise Objloader_Error with "cannot open '" & File_Name & "'";
+            raise Objloader_Error
+              with "cannot open '" & File_Name & "' (current directory: "
+              & Ada.Directories.Current_Directory & ")";
       end;
 
       declare
