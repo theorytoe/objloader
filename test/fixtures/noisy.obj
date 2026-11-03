@@ -1,0 +1,21 @@
+# noisy: everything the loader must skip and count
+
+mtllib noisy.mtl
+usemtl red
+g cube_group
+o cube_object
+s 1
+v 0.0 0.0 0.0
+v 1.0 0.0 0.0
+v 0.0 1.0 0.0
+l 1 2
+vp 0.25 0.25
+cstype bezier
+deg 3
+curv 0.0 1.0 1 2 3
+surf 0.0 1.0 0.0 1.0 1 2 3
+end
+s off
+notadirective 1 2
+f 1 2 3
+usemtl blue
