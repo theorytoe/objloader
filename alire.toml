@@ -7,4 +7,4 @@ maintainers = ["theorytoe <theory@theoryware.net>"]
 maintainers-logins = ["theorytoe"]
 licenses = "ISC"
 website = ""
-tags = []
+tags = ["obj", "mesh", "3d", "graphics"]
