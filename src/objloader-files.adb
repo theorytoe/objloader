@@ -21,11 +21,18 @@ package body Objloader.Files is
       end;
 
       declare
+         use type Ada.Streams.Stream_IO.Count;
+
          Size : constant Stream_IO.Count := Stream_IO.Size (File);
          Raw  : Stream_Element_Array (1 .. Stream_Element_Offset (Size));
          Last : Stream_Element_Offset := 0;
          Pos  : Stream_Element_Offset := 1;
       begin
+         if Size > Stream_IO.Count (Natural'Last) then
+            Stream_IO.Close (File);
+            raise Objloader_Error
+              with "file too large to load: '" & File_Name & "'";
+         end if;
          --  Size (or less) per read until done; the progress guard turns
          --  a truncated file into an error instead of an infinite loop.
          while Pos <= Raw'Last loop
