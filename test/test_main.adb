@@ -39,10 +39,11 @@ procedure Test_Main is
         and then Msg (Msg'First .. Msg'First + Want'Length - 1) = Want;
    end Has_Line;
 
-   --  GNAT 16 note: a body's exception handlers do not cover its own
-   --  declarative-part elaboration (verified with GNAT 16.1.0 and
-   --  16.2.1), so the failing call lives in a nested block inside the
-   --  statement part, which the procedure handler does cover.
+   --  Per RM 11.4, exceptions raised while elaborating a body's
+   --  declarative items are not handled by that body's own handlers
+   --  (confirmed on GNAT 16.1.0/16.2.1). The failing call therefore
+   --  lives in a nested block inside the statement part, which the
+   --  procedure handler does cover.
    procedure Expect_Parse_Error
      (Data : String; Want_Line : Positive) is
    begin
