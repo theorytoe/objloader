@@ -19,6 +19,10 @@ bindings, no external dependencies.
 - LF or CRLF line endings; space, tab, CR and FF act as separators.
 - Malformed input raises `Objloader_Error` with messages like
   `line 5: vertex index 4 out of range (1 .. 3)`.
+- RM 11.4 gotcha: if you catch the exception in the same body where you
+  declared `M : constant Mesh := Load (...)`, the handler does not run -
+  declarative-part elaboration raises are only handled by enclosing
+  scopes. Assign in the statement part when you need a local catch.
 
 ## Usage
 
