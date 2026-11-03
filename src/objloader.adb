@@ -194,8 +194,11 @@ package body Objloader is
          end;
       end To_Corner;
 
-      procedure Process_Line (Line : String; Line_No : Positive) is
-         Tokens : Token_Vectors.Vector;
+      procedure Process_Line
+        (Line   : String;
+         Line_No : Positive;
+         Tokens : out Token_Vectors.Vector)
+      is
       begin
          Tokenize (Line, Tokens);
          if Natural (Tokens.Length) = 0 then
@@ -290,6 +293,9 @@ package body Objloader is
 
       Pos     : Natural := Data'First;
       Line_No : Positive := 1;
+      --  One reusable token vector: Clear keeps the capacity, so lines
+      --  do not cause per-line heap traffic.
+      Tokens  : Token_Vectors.Vector;
 
    begin
       while Pos <= Data'Last loop
@@ -302,7 +308,7 @@ package body Objloader is
                Stop := Stop + 1;
             end loop;
 
-            Process_Line (Data (Start .. Stop - 1), Line_No);
+            Process_Line (Data (Start .. Stop - 1), Line_No, Tokens);
             Line_No := Line_No + 1;
             Pos := Stop + 1;
          end;
