@@ -119,11 +119,21 @@ package Objloader is
 
    type Expanded_Mesh is array (Positive range <>) of Expanded_Triangle;
 
+   --  One triangle flattened into its three corner vertices. Ada cannot
+   --  return an anonymous array, so this type exists; bounds are fixed
+   --  because a triangle always has exactly three corners.
+   type Expanded_Vertex_Array is array (1 .. 3) of Expanded_Vertex;
+
    --  Bake M into an array of expanded triangles. Corners lacking vt/vn
    --  get the fill values.
    function Expand
      (M           : Mesh;
       Fill_UV     : Real := 0.0;
       Fill_Normal : Real := 0.0) return Expanded_Mesh;
+
+   --  Flatten a single baked triangle into its corner vertices
+   --  (To_Vertex_Array (T) = (T.A, T.B, T.C)).
+   function To_Vertex_Array
+     (T : Expanded_Triangle) return Expanded_Vertex_Array;
 
 end Objloader;

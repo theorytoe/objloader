@@ -368,4 +368,10 @@ package body Objloader is
       return Result;
    end Expand;
 
+   function To_Vertex_Array
+     (T : Expanded_Triangle) return Expanded_Vertex_Array is
+   begin
+      return (T.A, T.B, T.C);
+   end To_Vertex_Array;
+
 end Objloader;

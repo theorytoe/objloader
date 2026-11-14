@@ -127,6 +127,15 @@ procedure Test_Main is
       Check (E (1).A.UV = (0.0, 0.0), "cube expand uv");
       Check (E (1).A.Surface_Normal = (0.0, 0.0, 1.0), "cube expand normal");
       Check (E (2).B.Position = (-0.5, 0.5, 0.5), "cube expand tri2 mid");
+
+      declare
+         VA : constant Objloader.Expanded_Vertex_Array :=
+           Objloader.To_Vertex_Array (E (1));
+      begin
+         Check (VA (1) = E (1).A, "vertex array corner 1");
+         Check (VA (2) = E (1).B, "vertex array corner 2");
+         Check (VA (3) = E (1).C, "vertex array corner 3");
+      end;
    end Test_Cube;
 
    procedure Test_Negative is
